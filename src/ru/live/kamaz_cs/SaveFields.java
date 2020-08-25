@@ -1,33 +1,32 @@
 package ru.live.kamaz_cs;
 
-import java.lang.reflect.Constructor;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
-public class SaveFields {
+public class SaveFields implements Serializable {
 
-    public void save(Class<?>... ls) {
+    private static final long serialVersionUID = 1L;
+
+    public static String save(Class<?>... ls) {
         Fields f = new Fields();
         final Class<?> cls = Fields.class;
         try {
             StringBuilder sb = new StringBuilder();
-            Field[] fields = cls.getDeclaredFields();
-            for (Field field : fields) {
-                Class<?> fieldType = field.getType();
-                System.out.print(field.getName() + " ");
-                sb.append(fieldType + " ");
+            if (cls.isAnnotationPresent(Save.class)) {
+                Field[] fields = cls.getDeclaredFields();
+                for (Field field : fields) {
+                    sb.append(field).append(System.lineSeparator());
+                }
+                try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("fieldsOfClass.txt"))) {
+                    oos.writeObject(sb.toString());
+                }
             }
-            Method[] methods = cls.getMethods();
-            for (Method method : methods) {
-                if (cls.isAnnotationPresent(Save.class)); //если ставлю фигурные скобки то серреализация не происходит
-                    method.invoke(f, sb.toString());
-                
-            }
-        } catch (IllegalAccessException | InvocationTargetException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Good");
+        return "OK";
     }
 
 }

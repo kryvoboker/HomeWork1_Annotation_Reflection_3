@@ -1,9 +1,20 @@
 package ru.live.kamaz_cs;
 
+import java.io.File;
+
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println(SaveFields.save(Fields.class));
+
+        File file = new File("fieldsOfClass.txt");
+        Fields f = new Fields();
+        System.out.println(f);
+
+        SaveFields sf = new SaveFields();
+        Fields ff = null;
+        ff = sf.loadFile(file);
+        System.out.println(ff);
+
     }
 
 }

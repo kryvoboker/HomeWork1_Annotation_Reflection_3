@@ -21,7 +21,7 @@ public class SaveFields implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "OK";
+        return "Written down";
     }
 
     public Fields loadFile(File file) {

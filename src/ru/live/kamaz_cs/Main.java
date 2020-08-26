@@ -9,6 +9,7 @@ public class Main {
         File file = new File("fieldsOfClass.txt");
         Fields f = new Fields();
         System.out.println(f);
+        System.out.println(SaveFields.save(Fields.class));
 
         SaveFields sf = new SaveFields();
         Fields ff = null;

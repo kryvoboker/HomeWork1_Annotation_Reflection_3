@@ -1,20 +1,19 @@
 package ru.live.kamaz_cs;
 
-import java.io.File;
-
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalAccessException, NoSuchFieldException, InstantiationException {
 
-        File file = new File("fieldsOfClass.txt");
         Fields f = new Fields();
-        System.out.println(f);
-        System.out.println(SaveFields.save(Fields.class));
+        f.setA(7);
+        f.setB("Hello world");
+        f.setC(25);
 
-        SaveFields sf = new SaveFields();
-        Fields ff = null;
-        ff = sf.loadFile(file);
-        System.out.println(ff);
+        String res = SaveFields.Serializable(f);
+        System.out.println("Serializable: " + res);
+
+        f = SaveFields.Deserializable(res, Fields.class);
+        System.out.println("Deserializable: " + f.getA() + ", " + f.getB() + ", " + f.getC());
 
     }
 
